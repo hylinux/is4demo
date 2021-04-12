@@ -29,8 +29,8 @@ namespace IdentityServer
         {
             // uncomment, if you want to add an MVC-based UI
             //services.AddControllersWithViews();
+            //如果不需要EF Core支持，去掉注释
             /*
-
             var builder = services.AddIdentityServer(options =>
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
@@ -42,6 +42,7 @@ namespace IdentityServer
                 .AddTestUsers(TestUsers.Users);
                 */
 
+            //这里起是将配置放入到EF Core支持的数据库里了。
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServer4.Quickstart.EntityFramework-4.0.0;trusted_connection=yes;";
@@ -59,6 +60,8 @@ namespace IdentityServer
                         sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 .AddDeveloperSigningCredential();
+
+            //EF Core的数据库里配置结束
 
 
             // not recommended for production - you need to store your key material somewhere secure
